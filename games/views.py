@@ -3,7 +3,7 @@ from .models import Game, Card, GameResult
 from django.http import JsonResponse
 from .game_result_services import calculate_game_result
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required # 로그인된 사용자만 접근할 수 있도록 제한
+from django.contrib.auth.decorators import login_required  # 로그인된 사용자만 접근할 수 있도록 제한
 User = get_user_model()
 
 # Create your views here.
