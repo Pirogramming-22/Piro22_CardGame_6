@@ -5,13 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Piro Card Game</title>
     <style>
-
+        @font-face {
+            font-family: 'GongGothicMedium';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        :root {
+            --light_brown: #ECDFCC;
+            --background-green: #181C14;
+            --green: #123524;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'GongGothicMedium';
+        }
+        header, footer {
+            background-color:var(--light_brown);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px;
+        }
+        footer {
+            justify-content: center;
+            font-size: 30px;
+        }
+        .left_navBar>a, .right_navBar>a {
+            text-decoration: none;
+            color: black;
+            font-size: 22px;
+        }
+        .underNavBar {
+            height: 100vh;
+            background-color: var(--background-green);
+            position: relative;
+            padding-block: 40px;
+            display: flex;
+        }
+        .card_table {
+            width: 580px;
+            height: 800px;
+            border-radius: 0px 450px 450px 0px;
+            background-color: var(--green);
+        }
+        .card_1, .card_2, .card_3 {
+            width: 120px;
+            height: 180px;
+            transform: rotate(-29.304deg);
+            flex-shrink: 0;
+            background-color: white;
+            position: absolute;
+            left: 140px;
+            top: 60px;
+            border: 4px solid Gainsboro; 
+            border-radius: 4px;
+        }
+        .card_2 {
+            left: 220px;
+            top: 100px;
+        }
+        .card_3 {
+            left: 300px;
+            top: 140px;
+        }
+        .title{
+            color: var(--light_brown);
+            font-weight: 500;
+            font-size: 100px;
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="left_navBar">
-            <a href="#" class="title">Pirogrammer Card Game</a>
+            <a href="#" class="game_name">Pirogrammer Card Game</a>
         </div>
         <div class="right_navBar">
             {% block contents %}
@@ -22,10 +93,14 @@
         </div>
     </header>
     <div class="underNavBar">
-
+        <div class="card_table"></div>
+        <div class="card_1"></div>
+        <div class="card_2"></div>
+        <div class="card_3"></div>
+        <div class="title">Piro Card</div>
     </div>
     <footer>
-        <p>피로 카드게임에 오신 여러분을 환영합니다!</p>
+        피로 카드게임에 오신 여러분을 환영합니다!
     </footer>
 
     <script>
