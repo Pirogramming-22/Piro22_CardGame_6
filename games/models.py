@@ -10,6 +10,11 @@ class Game(models.Model):
         ('waiting', 'Waiting'),  # 상대방의 반격 대기 중
         ('finished', 'Finished'),  # 게임 종료
     ]
+    
+    WINNING_CONDITION_CHOICES = [
+    ('high', 'Higher number wins'),  # 숫자가 큰 카드가 승리
+    ('low', 'Lower number wins'),   # 숫자가 작은 카드가 승리
+    ]
 
     player1 = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -22,6 +27,7 @@ class Game(models.Model):
         on_delete=models.CASCADE
     )
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='waiting')
+    winning_condition = models.CharField(max_length=10, choices=WINNING_CONDITION_CHOICES, default='high')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
