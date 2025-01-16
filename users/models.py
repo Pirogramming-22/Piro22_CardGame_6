@@ -7,4 +7,3 @@ class User(models.Model):
     user_password = models.CharField('비밀번호',max_length=50)
     user_score = models.IntegerField('사용자 점수',default=0)
 
-#왜 오류가 나는지 모르겠다..
