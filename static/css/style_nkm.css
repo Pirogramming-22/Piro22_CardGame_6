@@ -48,6 +48,8 @@ footer {
     height: 800px;
     border-radius: 0px 450px 450px 0px;
     background-color: var(--green);
+    border: 20px ridge var(--light_brown);
+    border-left: none;
 }
 .card_1, .card_2, .card_3 {
     width: 120px;
@@ -75,6 +77,7 @@ footer {
     flex-direction: column;
     align-items: center;
     margin-top: 100px;
+    width: 800px;
 }
 .title{
     color: var(--light_brown);
@@ -83,17 +86,7 @@ footer {
     text-shadow: 8px 10px var(--green);
 }
 
-.nkm_login_status {
-    margin-top: 40px;
-    font-family: 'GongGothicMedium';
-    color: var(--light_brown);
-    font-size: 28px;
-}
-.nkm_btn_container {
-    display: flex;
-    gap: 20px;
-}
-.nkm_game_start_btn, .nkm_game_list_btn {
+.main__game_start_btn, .login__game_start_btn, .login__game_list_btn {
     margin-top: 40px;
     font-size: 40px;
     padding-inline: 20px;
@@ -101,5 +94,53 @@ footer {
     border-radius: 10px;
     font-family: 'GongGothicMedium';
     background-color: var(--green);
+    color: var(--light_brown);
+}
+
+.login__status {
+    margin-top: 40px;
+    font-family: 'GongGothicMedium';
+    color: var(--light_brown);
+    font-size: 28px;
+}
+.login__btn_container {
+    display: flex;
+    gap: 20px;
+}
+
+.list__container {
+    color: var(--light_brown);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 22px;
+    width: 100%;
+}
+.list__user_info {
+    font-size: 30px;
+}
+.list__divide {
+    border: 2px solid var(--light_brown);
+    margin-block: 15px;
+}
+.list__tool {
+    padding: 10px 20px 10px 20px;
+    border-radius: 10px;
+    background-color: var(--green);
+    border-inline: 4px dashed var(--light_brown);
+}
+.list__game_info {
+    display: flex;
+    justify-content: space-between;
+    margin-block: 20px;
+    align-items: center;
+}
+.list__game_info_more {
+    font-size: 20px;
+    padding-inline: 20px;
+    padding-block: 8px;
+    border-radius: 10px;
+    font-family: 'GongGothicMedium';
+    background-color: var(--background-green);
     color: var(--light_brown);
 }
