@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+AUTH_USER_MODEL = 'users.User'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -120,7 +122,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-  BASE_DIR / 'static',
+ 'static' / BASE_DIR ,
 ]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'

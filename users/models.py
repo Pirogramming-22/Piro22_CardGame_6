@@ -1,9 +1,8 @@
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
-class User(models.Model):
-    user_name = models.CharField('사용자 이름',max_length=50)
-    user_password = models.CharField('비밀번호',max_length=50)
-    user_score = models.IntegerField('사용자 점수',default=0)
-
+class User(AbstractUser):
+    name = models.CharField(max_length=10, null=True, verbose_name="이름")
+    email = models.EmailField(unique=True, verbose_name="이메일")
+    nickname = models.CharField(max_length=20, null=True, verbose_name="닉네임")
+    user_score = models.IntegerField(default=0, verbose_name="사용자 점수")
