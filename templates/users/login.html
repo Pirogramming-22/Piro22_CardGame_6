@@ -1,1 +1,9 @@
 {% extends 'base.html' %}
+
+{% block btn_contents %}
+    <div class="nkm_login_status">{{user.name}}님이 로그인 중...</div>
+    <div class="nkm_btn_container">
+        <button type="submit" class="nkm_game_start_btn">start</button>
+        <button type="submit" class="nkm_game_list_btn">list</button>
+    </div>
+{% endblock %}

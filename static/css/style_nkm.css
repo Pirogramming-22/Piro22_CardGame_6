@@ -82,3 +82,24 @@ footer {
     font-size: 100px;
     text-shadow: 8px 10px var(--green);
 }
+
+.nkm_login_status {
+    margin-top: 40px;
+    font-family: 'GongGothicMedium';
+    color: var(--light_brown);
+    font-size: 28px;
+}
+.nkm_btn_container {
+    display: flex;
+    gap: 20px;
+}
+.nkm_game_start_btn, .nkm_game_list_btn {
+    margin-top: 40px;
+    font-size: 40px;
+    padding-inline: 20px;
+    padding-block: 8px;
+    border-radius: 10px;
+    font-family: 'GongGothicMedium';
+    background-color: var(--green);
+    color: var(--light_brown);
+}
