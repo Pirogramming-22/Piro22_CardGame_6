@@ -40,6 +40,10 @@
             color: black;
             font-size: 22px;
         }
+        .right_navBar {
+            display: flex;
+            gap: 40px;
+        }
         .underNavBar {
             height: 100vh;
             background-color: var(--background-green);
@@ -73,10 +77,18 @@
             left: 300px;
             top: 140px;
         }
+        .main_container {
+            margin-left: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 100px;
+        }
         .title{
             color: var(--light_brown);
             font-weight: 500;
             font-size: 100px;
+            text-shadow: 8px 10px var(--green);
         }
     </style>
 </head>
@@ -86,7 +98,7 @@
             <a href="#" class="game_name">Pirogrammer Card Game</a>
         </div>
         <div class="right_navBar">
-            {% block contents %}
+            {% block navbar_contents %}
             <a href="#" class="start_game">게임하기</a>
             <a href="#" class="lanking">랭킹보기</a>
             <a href="#" class="logout">로그아웃</a>
@@ -98,7 +110,11 @@
         <div class="card_1"></div>
         <div class="card_2"></div>
         <div class="card_3"></div>
-        <div class="title">Piro Card</div>
+        <div class="main_container">
+            <div class="title">Piro Card</div>
+            {% block btn_contents %}
+            {% endblock %}
+        </div>
     </div>
     <footer>
         피로 카드게임에 오신 여러분을 환영합니다!
