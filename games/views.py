@@ -78,7 +78,6 @@ def user_game_data(request, game_id):
         "game": game,             # 요청된 게임 객체
         "index": game_index,      # 요청된 게임의 인덱스
     }
-
     return render(request, template, context)
 
 
@@ -99,4 +98,3 @@ def user_ranking(request):
             for index, user in enumerate(top_users)
         ]
     return render(request, "games/ranking.html", {"ranking_data": ranking_data})
-

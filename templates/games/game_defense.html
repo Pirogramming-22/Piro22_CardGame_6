@@ -1,11 +1,34 @@
-{% extends 'base.html' %}
+{% extends 'games/detail.html' %}
 
-{% block btn_contents %}
-<div class="attack_statebox">
-    <div class="defense_info">
-        <h3>4 - user1 VS user3 </h3>  
-    </div>
-    <a href="#" class="defense_gamebtn"><button>대응하기</button></a>
-    <a href="#" class="defense_gamebtn"><button>전적목록</button></a>
+
+{% block detail_contents%}
+<div>
+    <form action="/submit" method="POST">
+        <h3 class="attack_title">반격할 카드: </h3>
+        <div class="card_choice">
+            <div class="card_choice_number">
+                <input type="radio" id="card_number_1" name="card_number" class="card_number">
+                <label for="card_number_1"></label>
+            </div>
+            <div class="card_choice_number">
+                <input type="radio" id="card_number_2" name="card_number" class="card_number">
+                <label for="card_number_2"></label>
+            </div>            
+            <div class="card_choice_number">
+                <input type="radio" id="card_number_3" name="card_number" class="card_number" >
+                <label for="card_number_3"></label>
+            </div>
+            <div class="card_choice_number">
+                <input type="radio" id="card_number_4" name="card_number"  class="card_number" >
+                <label for="card_number_4"></label>
+            </div>
+            <div class="card_choice_number">
+                <input type="radio" id="card_number_5" name="card_number" class="card_number" >
+                <label for="card_number_5"></label>
+            </div>
+        </div>
+        <button tyep="submit"class="counterattack_btn">CounterAttack</button>
+    </form>
 </div>
+
 {% endblock %}
