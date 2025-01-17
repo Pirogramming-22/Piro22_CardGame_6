@@ -1,7 +1,7 @@
 function makeRandomNumbers(count){
     const numbers = new Set();
     while(numbers.size <count){
-        const randomNum = Math.floor(Math.random()*9)+1;
+        const randomNum = Math.floor(Math.random()*10)+1;
         numbers.add(randomNum);
     }
 

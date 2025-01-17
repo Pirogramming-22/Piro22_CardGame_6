@@ -87,6 +87,7 @@
     font-family: var(--font-style-gonggothic-medium);
     background-color: var(--light_brown);
     color: var(--background-green);
+    margin-inline: 6%;
 }
 
 .counterattack_btn:hover {
@@ -116,7 +117,7 @@
     width: 80px;
     height: 40px;
 }
-.counterattack_btn{
-    margin-inline: 30%;
-}
 
+.game_attack__btn {
+    margin-left: 34%;
+}
