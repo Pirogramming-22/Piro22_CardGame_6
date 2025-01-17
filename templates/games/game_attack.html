@@ -3,24 +3,35 @@
 
 {% block detail_contents%}
 <div>
-    <h3>반격할 카드: </h3>
     <form action="/submit" method="POST">
-        <label>
-            <input type="checkbox" name="card_number">
-        </label>
-        <label>
-            <input type="checkbox" name="card_number">
-        </label>
-        <label>
-            <input type="checkbox" name="card_number">
-        </label>
-        <label>
-            <input type="checkbox" name="card_number">
-        </label>
-        <label>
-            <input type="checkbox" name="card_number">
-        </label>
-        <button>CounterAttack</button>
+        <h3 class="attack_title">내가 고른 카드: </h3>
+        <div class="card_choice">
+            <div class="card_choice_number">
+                <input type="checkbox" id="card_number" value="2">
+                <label for="checkbox1">2</label>
+            </div>
+            <div class="card_choice_number">
+                <input type="checkbox" id="card_number" value="3">
+                <label for="checkbox1">3</label>
+            </div>            
+            <div class="card_choice_number">
+                <input type="checkbox" id="card_number" value="5">
+                <label for="checkbox1">5</label>
+            </div>
+            <div class="card_choice_number">
+                <input type="checkbox" id="card_number" value="7">
+                <label for="checkbox1">7</label>
+            </div>
+            <div class="card_choice_number">
+                <input type="checkbox" id="card_number" value="9">
+                <label for="checkbox1">9</label>
+            </div>
+        </div>
+    </form>
+    <form action="/submit" method="POST">
+        <h3 class="attack_title">Defender: </h3>
+        <button tyep="submit"class="counterattack_btn">CounterAttack</button>
+    </form>
 </div>
 
 {% endblock %}

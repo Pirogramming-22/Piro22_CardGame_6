@@ -277,7 +277,7 @@ footer {
 }
 .delete_attack__game_delete, .delete_attack__game_list,
 .counter_attack__game_accept, .counter_attack__game_list,
-.finished_attack__game_list {
+.finished_attack__game_list{
     font-size: var(--font-size-btn-medium);
     padding-inline: 20px;
     padding-block: 8px;
