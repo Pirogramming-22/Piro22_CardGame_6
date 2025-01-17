@@ -1,0 +1,30 @@
+{% extends 'games/detail.html' %}
+
+{% block detail_contents %}
+    <div class="ranking_awards">
+        <p> Piro 명예의 전당 </p>  
+    </div>
+    <div class="ranking_medal">
+        {% for user in ranking_data %}
+        <div class="
+            {% if user.rank == 1 %}
+                ranking_first
+            {% elif user.rank == 2 %}
+                ranking_second
+            {% elif user.rank == 3 %}
+                ranking_third
+            {% else %}
+                ranking_other
+            {% endif %}
+            medal">
+            <div class="ranking_info">
+                <p class="ranking_user">{{ user.username }}</p>
+                <p class="ranking_score">{{ user.user_score }}</p>
+            </div>
+            <p class="ranking_number">{{ user.rank }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    <a href="{% url 'games:user_game_list' %}" class="result_total_list"><button>전적목록</button></a>
+</div>
+{% endblock %}
