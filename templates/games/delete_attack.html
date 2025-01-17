@@ -1,0 +1,9 @@
+{% extends 'games/detail.html' %}
+{% block detail_contents %}
+    <div class="delete_attack__game_info_status">게임 진행상태</div>
+    <div class="delete_attack__game_info_mycard">나: {{user.card}}</div>
+    <div class="delete_attack__btns">
+        <button type="submit" class="delete_attack__game_delete">게임취소</button>
+        <button type="submit" class="delete_attack__game_list">전적목록</button>
+    </div>
+{% endblock %}
