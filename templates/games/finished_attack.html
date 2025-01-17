@@ -1,0 +1,30 @@
+{% extends 'games/detail.html' %}
+{% block detail_contents %}
+    <div class="detail__game_info_users">{{index}}. {{game.attacker}} VS {{game.defender}}</div>
+    <div class="detail__divide"></div>
+    <div class="finished_attack__game_info_rule">
+        {% if game.winning_condition == 'high' %}
+            숫자가 큰 사람이 이깁니다
+        {% else %}
+            숫자가 작은 사람이 이깁니다
+        {% endif %}
+    </div>    
+    <div class="finished_attack__game_info_card">
+        <div class="finished_attack__attacker">{{ game.attacker.username }} : {{ game.attacker_card }}</div>
+        <div class="finished_attack__defenser">{{ game.defender.username }} : {{ game.defender_card }}</div>
+    </div>
+    <div class="finished_attack__game_info_result">
+        게임결과:
+        {% if game.winner%}
+            {% if game.winner.id == user.id %}
+                    Win
+            {% else %}
+                    Lose
+            {% endif %}
+        {% else %}
+            Draw
+        {% endif %}
+    </div>
+    <div class="finished_attack__game_info_score">점수:{{user.user_score}}</div>
+    <a href="{% url 'games:user_game_list'%}" class="finished_attack__a_tag"><button type="submit" class="finished_attack__game_list">전적목록</button></a>
+{% endblock %}

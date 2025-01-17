@@ -1,0 +1,16 @@
+{% extends "account/signup.html" %}
+{% block contents %}
+    <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 panel panel-default">
+        <div class="alert alert-info">
+            계정 정보를 입력하세요.
+        </div>
+        <form action="" method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="submit" class="btn btn-primary" value="Register">
+        </form>
+    </div>
+    </div>
+{% endblock %}

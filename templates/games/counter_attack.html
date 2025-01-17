@@ -1,0 +1,9 @@
+{% extends 'games/detail.html' %}
+{% block detail_contents %}
+    <div class="detail__game_info_users">{{index}}-{{game.attacker}} VS {{game.defender}}</div>
+    <div class="detail__divide"></div>
+    <div class="counter_attack__btns">
+        <button type="submit" class="counter_attack__game_accept" onclick="window.location.href='{% url 'games:game_defense' game_id=game.id %}'">대응하기</button>
+        <a href="{% url 'games:user_game_list'%}"><button type="submit" class="finished_attack__game_list">전적목록</button></a>
+    </div>
+{% endblock %}
