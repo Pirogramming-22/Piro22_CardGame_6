@@ -305,3 +305,12 @@ footer {
     background-color: var(--light_brown);
     color: var(--background-green);
 }
+
+.counter_attack__btns > a,
+.finished_attack__a_tag {
+    text-decoration: none;
+}
+
+.finished_attack__game_list {
+    margin-top: 0;
+}

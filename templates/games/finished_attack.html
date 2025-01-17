@@ -26,5 +26,5 @@
         {% endif %}
     </div>
     <div class="finished_attack__game_info_score">점수:{{user.user_score}}</div>
-    <a href="{% url 'games:user_game_list'%}"><button type="submit" class="finished_attack__game_list">전적목록</button></a>
+    <a href="{% url 'games:user_game_list'%}" class="finished_attack__a_tag"><button type="submit" class="finished_attack__game_list">전적목록</button></a>
 {% endblock %}
