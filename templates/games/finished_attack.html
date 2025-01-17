@@ -1,5 +1,7 @@
 {% extends 'games/detail.html' %}
 {% block detail_contents %}
+    <div class="detail__game_info_users">유저정보</div>
+    <div class="detail__divide"></div>
     <div class="finished_attack__game_info_rule">게임 승리기준</div>
     <div class="finished_attack__game_info_card">
         <div class="finished_attack__attacker">{{game.attacker.id}}:{{game.attacker.card}}</div>
