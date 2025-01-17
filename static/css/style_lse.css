@@ -1,31 +1,10 @@
-.attack_gamebtn, .defense_gamebtn{
-    margin-bottom: 10px;
-}
-
-.result_info{
-    font-size: 15px;
-    line-height: 1rem;
-    font-weight: 400;
-
-}
-.result_info_detail{
-    border-top: 2px solid var(--light_brown);
-    margin: 0;
-    line-height: 2;
-    padding-top: 5px;
-}
-.result_info_detail p{
-    margin:0;
-}
-
-
 .ranking_awards{
     border-bottom: 2px solid var(--light_brown);
     width: 80%;
     text-align: center;
 }
-.ranking_awards > p {
-    margin-top: 0px;
+.ranking_awards > p{
+    margin-top: 0;
 }
 .ranking_medal{
     display: flex;
@@ -67,11 +46,11 @@
     top:-60px;
     left: 50%;
     transform : translateX(-50%);
-    font-size: var(--font-size-btn-medium);
+    font-size: 16px;
     text-align: center;
 }
 .ranking_user{
-    margin-block: 0;
+    margin-bottom: 0;
 }
 .ranking_score{
     top:-50px;
