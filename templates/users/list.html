@@ -6,16 +6,49 @@
     <div class="list__user_info">현재 플레이어: {{ user.username }}</div>
     <div class="list__divide"></div>
     <div class="list__tool">
-        {% for game in game_data %}
+        {% for item in games_with_index %}
         <div class="list__game_info">
-            <div class="list__game_info_users">상대방: {{ game.opponent }}</div>
-            <div class="list__game_info_status">게임 상태: {{ game.status }}</div>
-            <div class="list__game_info_result">
-                내 결과: {{ game.user_result }} / 상대 결과: {{ game.opponent_result }}
+            <!-- 게임 인덱스 -->
+            <div class="list__game_index">
+                게임 번호: {{ item.index }}
             </div>
+
+            <!-- 상대방 정보 -->
+            <div class="list__game_info_users">
+                상대방: 
+                {% if item.game.attacker == user %}
+                    {{ item.game.defender.username }}
+                {% else %}
+                    {{ item.game.attacker.username }}
+                {% endif %}
+            </div>
+
+            <!-- 게임 상태 -->
+            <div class="list__game_info_status">
+                게임 상태: {{ item.game.status }}, {{item.game.id}}
+            </div>
+
+            <!-- 게임 결과 -->
+            <div class="list__game_info_result">
+                {% if item.game.status == "finished" %}
+                    내 결과: 
+                    {% if item.game.winner == user %}
+                        Win
+                    {% elif item.game.winner == None %}
+                        Draw
+                    {% else %}
+                        Lose
+                    {% endif %}
+                {% else %}
+                    결과 대기 중
+                {% endif %}
+            </div>
+
+            <!-- 버튼 -->
             <button type="submit" class="list__game_info_CA">Counter Attack</button>
-            <a href="{% url 'games:user_game_data' game_id=game.game_id %}"><button type="submit" class="list__game_info_more">게임정보</button></a>
-            {{game.game_id}}
+            <a href="{% url 'games:user_game_data' game_id=item.game.id %}">
+                <button type="submit" class="list__game_info_more">게임정보</button>
+            </a>
         </div>
         {% empty %}
         <p>플레이한 게임이 없습니다.</p>

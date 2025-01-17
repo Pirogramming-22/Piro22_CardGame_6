@@ -1,5 +1,5 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Game, Card, GameResult
+from django.shortcuts import render
+from .models import Game
 from django.http import JsonResponse
 from .game_result_services import calculate_game_result
 from django.contrib.auth import get_user_model
@@ -22,73 +22,65 @@ def calculate_result(request, game_id):
 def user_game_list(request):
     user = request.user  # 현재 로그인된 사용자
 
-    # 사용자가 플레이한 모든 게임 조회
-    games = Game.objects.filter(player1=user) | Game.objects.filter(player2=user)
-    games = games.order_by('-created_at')  # 최신순 정렬
+    # 사용자가 공격자(attacker) 또는 수비자(defender)로 참여한 모든 게임 조회
+    # 사용자가 참여한 모든 게임 (오래된 순으로 정렬)
+    games = Game.objects.filter(attacker=user) | Game.objects.filter(defender=user)
+    games = games.order_by('created_at')  # 오래된 순 정렬
 
-    # 게임 데이터를 처리
-    game_data = []
-    for game in games:
-        opponent = game.player2 if game.player1 == user else game.player1
+    # 게임 ID와 인덱스 매핑
+    games_with_index = [
+        {"index": idx + 1, "game": game}
+        for idx, game in enumerate(games)
+    ]
 
-        # 결과 확인
-        try:
-            result = game.result
-            if result.draw:
-                game_user_result = "Draw"
-                game_opponent_result = "Draw"
-            elif result.winner == user:
-                game_user_result = "Win"
-                game_opponent_result = "Lose"
-            else:
-                game_user_result = "Lose"
-                game_opponent_result = "Win"
-        except GameResult.DoesNotExist:
-            game_user_result = "Pending"
-            game_opponent_result = "Pending"
-
-        # 게임 데이터 추가
-        game_data.append({
-            "game_id": game.id,
-            "opponent": opponent.username,
-            "user_result": game_user_result,
-            "opponent_result": game_opponent_result,
-            "status": game.status,  # 게임 상태 추가
-        })
-
-    # 템플릿에 데이터 전달
+    # 템플릿에 모델 인스턴스를 직접 전달
     return render(request, "users/list.html", {
-        "user": user,           # 현재 사용자 정보
-        "game_data": game_data,  # 게임 목록
+        "user": user,               # 현재 사용자 정보
+        "games_with_index": games_with_index  # 인덱스와 게임 모델 포함
     })
+
 
 # 게임 정보
 @login_required
 def user_game_data(request, game_id):
-    """
-    게임 상태에 따라 다른 템플릿으로 연결
-    """
-    # 게임 객체 가져오기
-    game = get_object_or_404(Game, id=game_id)
+    user = request.user  # 현재 로그인된 사용자
 
-    # 상태에 따른 템플릿 분기
-    if game.status == "waiting":
-        template = "games/delete_attack.html"
-    elif game.status == "ongoing":
-        template = "games/counter_attack.html"
-    else: # game.status == "finished":
+    # 사용자가 참여한 모든 게임 (오래된 순으로 정렬)
+    games = Game.objects.filter(attacker=user) | Game.objects.filter(defender=user)
+    games = games.order_by('created_at')  # 오래된 순 정렬
+
+    # 게임 ID와 인덱스 매핑
+    games_with_index = [
+        {"index": idx + 1, "game": game}
+        for idx, game in enumerate(games)
+    ]
+
+    # 요청된 게임 데이터와 인덱스 가져오기(딕셔너리)
+    game_data = next((item for item in games_with_index if item["game"].id == game_id), None)
+
+
+    # 게임 객체와 인덱스 추출
+    game = game_data["game"]
+    game_index = game_data["index"]
+
+    # 템플릿 결정
+    if game.status == "finished":
         template = "games/finished_attack.html"
-    
+    else:
+        if game.attacker == user:
+            template = "games/delete_attack.html"
+        else:
+            template = "games/counter_attack.html"
+
     # 데이터 전달
     context = {
-        "game_id": game.id,
-        "player1": game.player1.username,
-        "player2": game.player2.username,
-        "status": game.status,
+        "user": user,             # 현재 사용자 정보
+        "game": game,             # 요청된 게임 객체
+        "index": game_index,      # 요청된 게임의 인덱스
     }
 
     return render(request, template, context)
-        
+
 
 # 랭킹
 def user_ranking(request):
