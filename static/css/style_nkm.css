@@ -11,6 +11,7 @@
     --black: #000;
     --white: #FFFFFF;
     --light_gray: #dcdcdc;
+    --header-footer-color: #beac92;
 
     --font-style-gonggothic-medium: 'GongGothicMedium';
     
@@ -34,7 +35,7 @@ body {
     margin: 0;
 }
 header, footer {
-    background-color: #beac92;
+    background-color: var(--header-footer-color);
     height: 80px;
     display: flex;
     align-items: center;
@@ -304,4 +305,13 @@ footer {
 .result_total_list > button:hover {
     background-color: var(--light_brown);
     color: var(--background-green);
+}
+
+.counter_attack__btns > a,
+.finished_attack__a_tag {
+    text-decoration: none;
+}
+
+.finished_attack__game_list {
+    margin-top: 0;
 }
