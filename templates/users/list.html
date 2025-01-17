@@ -7,7 +7,9 @@
     <div class="list__tool">
         <div class="list__game_info">
             <div class="list__game_info_users">유저정보</div>
-            <div class="list__game_info_status">게임 진행상태</div>
+            {% if game.status %}
+            {% endif %}
+            <button type="submit" class="list__game_info_CA">Counter Attack</button>
             <button type="submit" class="list__game_info_more">게임정보</button>
         </div>
         <div class="list__game_info">
@@ -17,7 +19,11 @@
         </div>
         <div class="list__game_info">
             <div class="list__game_info_users">유저정보</div>
-            <div class="list__game_info_status">게임 진행상태</div>
+            {% if game.status %}
+            {% endif %}
+            <div class="list__game_info_status">게임 진행상태
+                <button type="submit" class="list__game_info_del">공격취소</button>
+            </div>
             <button type="submit" class="list__game_info_more">게임정보</button>
         </div>
         <div class="list__game_info">

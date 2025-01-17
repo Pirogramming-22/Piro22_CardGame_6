@@ -8,12 +8,29 @@
     --light_brown: #ECDFCC;
     --background-green: #181C14;
     --green: #123524;
+    --black: #000;
+    --white: #FFFFFF;
+    --light_gray: #dcdcdc;
+
+    --font-style-gonggothic-medium: 'GongGothicMedium';
+    
+    --font-size-header: 22px;
+    --font-size-footer: 30px;
+    --font-size-btn-big: 40px;
+    --font-size-btn-medium: 20px;
+    --font-size-btn-small: 16px;
+    --font-size-detail-infos: 24px;
+
+    --font-weight-bold: 700;
+    --font-weight-medium: 500;
+
+    --radius-regular: 10px;
 }
 * {
     box-sizing: border-box;
 }
 body {
-    font-family: 'GongGothicMedium';
+    font-family: var(--font-style-gonggothic-medium);
 }
 header, footer {
     background-color:var(--light_brown);
@@ -25,12 +42,25 @@ header, footer {
 }
 footer {
     justify-content: center;
-    font-size: 30px;
+    font-size: var(--font-size-footer);
 }
 .left_navBar>a, .right_navBar>a {
     text-decoration: none;
-    color: black;
-    font-size: 22px;
+    color: var(--black);
+    font-size: var(--font-size-header);
+}
+.game_name, .right_navBar>a {
+    display: inline-block;
+    transition: all 0.05s ease-in-out 0.1s;
+    transform: scaleX(1);
+}
+.game_name:hover, .right_navBar>a:hover {
+    transform: scaleX(1.05);
+    font-weight: var(--font-weight-bold);
+}
+.green {
+    color: var(--green);
+    font-weight: var(--font-weight-bold);
 }
 .right_navBar {
     display: flex;
@@ -43,7 +73,7 @@ footer {
     padding-block: 40px;
     display: flex;
 }
-.card_table {
+.card_table, .card_inner_table {
     width: 580px;
     height: 800px;
     border-radius: 0px 450px 450px 0px;
@@ -51,16 +81,52 @@ footer {
     border: 20px ridge var(--light_brown);
     border-left: none;
 }
+.card_inner_table {
+    margin-top: 40px;
+    width: 480px;
+    height: 680px;
+    background-color: var(--background-green);
+    border: 10px solid var(--light_brown);
+    border-left: none;
+}
+.card_position_1, .card_position_2,
+.card_position_3, .card_position_4 {
+    width: 98px;
+    height: 137px;
+    transform: rotate(-21.483deg);
+    border: 5px solid var(--light_brown);
+    border-radius: 16px;
+    position: absolute;
+    background-color: var(--green);
+}
+.card_position_1 {
+    left: 72px;
+    top: 578px;
+}
+.card_position_2 {
+    transform: rotate(-56.648deg);
+    left: 200px;
+    top: 474px;
+}
+.card_position_3 {
+    transform: rotate(-115.196deg);
+    left: 200px;
+    top: 288px;
+}
+.card_position_4 {
+    transform: rotate(-146.782deg);
+    left: 72px;
+    top: 156px;
+}
 .card_1, .card_2, .card_3 {
     width: 120px;
     height: 180px;
     transform: rotate(-29.304deg);
-    flex-shrink: 0;
-    background-color: white;
+    background-color: var(--white);
     position: absolute;
     left: 140px;
     top: 60px;
-    border: 4px solid Gainsboro; 
+    border: 4px solid var(--light_gray); 
     border-radius: 4px;
 }
 .card_2 {
@@ -70,6 +136,10 @@ footer {
 .card_3 {
     left: 300px;
     top: 140px;
+}
+.card_1 > img, .card_2 > img, .card_3 > img {
+    width: 100%;
+    height: 100%;
 }
 .main_container {
     margin-left: 100px;
@@ -81,25 +151,25 @@ footer {
 }
 .title{
     color: var(--light_brown);
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     font-size: 100px;
     text-shadow: 8px 10px var(--green);
 }
 
 .main__game_start_btn, .login__game_start_btn, .login__game_list_btn {
     margin-top: 40px;
-    font-size: 40px;
+    font-size: var(--font-size-btn-big);
     padding-inline: 20px;
     padding-block: 8px;
-    border-radius: 10px;
-    font-family: 'GongGothicMedium';
+    border-radius: var(--radius-regular);
+    font-family: var(--font-style-gonggothic-medium);
     background-color: var(--green);
     color: var(--light_brown);
 }
 
 .login__status {
     margin-top: 40px;
-    font-family: 'GongGothicMedium';
+    font-family: var(--font-style-gonggothic-medium);
     color: var(--light_brown);
     font-size: 28px;
 }
@@ -113,11 +183,11 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    font-size: 22px;
+    font-size: var(--font-size-header);
     width: 100%;
 }
 .list__user_info {
-    font-size: 30px;
+    font-size: var(--font-size-footer);
 }
 .list__divide {
     border: 2px solid var(--light_brown);
@@ -125,7 +195,7 @@ footer {
 }
 .list__tool {
     padding: 10px 20px 10px 20px;
-    border-radius: 10px;
+    border-radius: var(--radius-regular);
     background-color: var(--green);
     border-inline: 4px dashed var(--light_brown);
 }
@@ -135,21 +205,28 @@ footer {
     margin-block: 20px;
     align-items: center;
 }
-.list__game_info_more {
-    font-size: 20px;
+.list__game_info_more, .list__game_info_CA, .list__game_info_del {
+    font-size: var(--font-size-btn-medium);
     padding-inline: 20px;
     padding-block: 8px;
-    border-radius: 10px;
-    font-family: 'GongGothicMedium';
+    border-radius: var(--radius-regular);
+    font-family: var(--font-style-gonggothic-medium);
     background-color: var(--background-green);
     color: var(--light_brown);
+}
+
+.list__game_info_CA, .list__game_info_del {
+    background-color: var(--light_brown);
+    color: var(--green);
+    font-size: var(--font-size-btn-small);
+    font-weight: var(--font-weight-bold);
 }
 
 .detail__container {
     width: 600px;
     height: 600px;
     background-color: var(--green);
-    border-radius: 10px;
+    border-radius: var(--radius-regular);
     padding: 20px;
     box-shadow: 4px 4px 4px 0px var(--light_brown);
 }
@@ -169,7 +246,7 @@ footer {
 .delete_attack__game_info_status, .delete_attack__game_info_mycard,
 .finished_attack__game_info_rule, .finished_attack__game_info_card,
 .finished_attack__game_info_result, .finished_attack__game_info_score {
-    font-size: 24px;
+    font-size: var(--font-size-detail-infos);
 }
 .delete_attack__btns, .counter_attack__btns, .finished_attack__game_list{
     display: flex;
@@ -180,11 +257,11 @@ footer {
 .delete_attack__game_delete, .delete_attack__game_list,
 .counter_attack__game_accept, .counter_attack__game_list,
 .finished_attack__game_list {
-    font-size: 20px;
+    font-size: var(--font-size-btn-medium);
     padding-inline: 20px;
     padding-block: 8px;
-    border-radius: 10px;
-    font-family: 'GongGothicMedium';
+    border-radius: var(--radius-regular);
+    font-family: var(--font-style-gonggothic-medium);
     background-color: var(--background-green);
     color: var(--light_brown);
 }
