@@ -1,8 +1,15 @@
 {% extends "account/base_entrance.html" %}
+{% load static %}
 {% load allauth i18n %}
 {% block head_title %}
     {% trans "Signup" %}
 {% endblock head_title %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
+
 {% block content %}
     {% element h1 %}
         {% trans "Sign Up" %}

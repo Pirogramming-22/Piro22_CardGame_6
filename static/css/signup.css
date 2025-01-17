@@ -1,0 +1,14 @@
+li{
+    list-style: none;
+    color: black;
+}
+li a{
+    padding: 10px;
+    color: white;
+    background: lime;
+    width: 20dvw;
+    height: 30px;
+    text-align: center;
+    align-items: center;
+    border-radius: 10px;
+}
