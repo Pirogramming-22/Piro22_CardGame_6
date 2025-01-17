@@ -1,39 +1,30 @@
 {% extends 'games/detail.html' %}
-
 {% block detail_contents %}
-<div class="finished_attack__game_info">
-    <!-- 게임 승리 기준 -->
+    <div class="detail__game_info_users">{{index}}-{{game.attacker}} VS {{game.defender}}</div>
+    <div class="detail__divide"></div>
     <div class="finished_attack__game_info_rule">
-        게임 승리 기준: {{ game.get_winning_condition_display }}, {{index}}
-    </div>
-
-    <!-- 게임 카드 정보 -->
-    <div class="finished_attack__game_info_card">
-        <div class="finished_attack__attacker">
-            공격자: {{ game.attacker.username }} - 카드: {{ game.attacker_card }}
-        </div>
-        <div class="finished_attack__defenser">
-            수비자: {{ game.defender.username }} - 카드: {{ game.defender_card }}
-        </div>
-    </div>
-
-    <!-- 게임 결과 -->
-    <div class="finished_attack__game_info_result">
-        {% if game.winner %}
-            게임 결과: 승자 - {{ game.winner.username }}
+        {% if game.winning_condition == 'high' %}
+            숫자가 큰 사람이 이깁니다
         {% else %}
-            게임 결과: 무승부
+            숫자가 작은 사람이 이깁니다
+        {% endif %}
+    </div>    
+    <div class="finished_attack__game_info_card">
+        <div class="finished_attack__attacker">{{ game.attacker.username }}:{{ game.attacker_card }}</div>
+        <div class="finished_attack__defenser">{{ game.defender.username }}:{{ game.defender_card }}</div>
+    </div>
+    <div class="finished_attack__game_info_result">
+        게임결과:
+        {% if game.winner%}
+            {% if game.winner.id == user.id %}
+                    Win
+            {% else %}
+                    Lose
+            {% endif %}
+        {% else %}
+            Draw
         {% endif %}
     </div>
-
-    <!-- 나의 점수 -->
-    <div class="finished_attack__game_info_score">
-        나의 점수: {{ user.user_score }}
-    </div>
-
-    <!-- 전적 목록으로 이동 -->
-    <a href="{% url 'games:user_game_list' %}">
-        <button type="button" class="finished_attack__game_list">전적 목록</button>
-    </a>
-</div>
+    <div class="finished_attack__game_info_score">점수:{{user.user_score}}</div>
+    <a href="{% url 'games:user_game_list'%}"><button type="submit" class="finished_attack__game_list">전적목록</button></a>
 {% endblock %}
