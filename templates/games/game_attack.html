@@ -1,16 +1,26 @@
-{% extends 'base.html' %}
+{% extends 'games/detail.html' %}
 
-{% block btn_contents %}
-<div class="attack_statebox">
-    <div class="attack_info">
-        <h3>4 - user1 VS user3 </h3>  
-        <div class="attack_state">
-            <p>진행 중...</p>
-            <p>나: 6</p>
-        </div>
-    </div>
-    <a href="#" class="attack_gamebtn"><button>게임취소</button></a>
-    <a href="#" class="attack_gamebtn"><button>전적목록</button></a>
 
+{% block detail_contents%}
+<div>
+    <h3>반격할 카드: </h3>
+    <form action="/submit" method="POST">
+        <label>
+            <input type="checkbox" name="card_number">
+        </label>
+        <label>
+            <input type="checkbox" name="card_number">
+        </label>
+        <label>
+            <input type="checkbox" name="card_number">
+        </label>
+        <label>
+            <input type="checkbox" name="card_number">
+        </label>
+        <label>
+            <input type="checkbox" name="card_number">
+        </label>
+        <button>CounterAttack</button>
 </div>
+
 {% endblock %}
