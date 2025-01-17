@@ -1,2 +1,11 @@
 {% extends 'base.html' %}
-{% block content %} <!-- extends 하는 영역 -->
+
+{% block navbar_contents %}
+    <a href="#" class="main__login">로그인</a>
+    <a href="#" class="main__join">회원가입</a>
+{% endblock %}
+
+{% block btn_contents %}
+    <div class="title">Piro Card Game</div>
+    <button type="submit" class="main__game_start_btn">start</button>
+{% endblock %}
