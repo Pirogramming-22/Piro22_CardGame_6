@@ -13,7 +13,7 @@
 | **BE**    | 임진수     | "견고한 서버의 지휘자!"       |
 ---
 
-## 🌟 Team Collaboration Tool: **NOTION**
+## 🌟 Team Collaboration Tool_1: **NOTION**
 
 프로젝트의 모든 자료와 협업을 [**NOTION**](https://fan-cornflower-ed9.notion.site/Team-Project-Template-17db186c644e8013b40ad36bb828215d?pvs=4)을 통해 관리합니다.  
 📌 **NOTION에서 확인할 수 있는 내용:**
@@ -23,6 +23,12 @@
 - 자료와 문서 정리 
 
 > **[NOTION 구경가기](https://fan-cornflower-ed9.notion.site/Team-Project-Template-17db186c644e8013b40ad36bb828215d?pvs=4)**  
+
+---
+
+## 🌟 Team Collaboration Tool_2: **FIGMA**
+
+[**FIGMA** 구경가기](https://www.figma.com/design/NMpDxZQ4Mrm7dLK90fuBHW/Piro22_CardGame_6?node-id=0-1&t=BGLoGQP9l2re2mMI-1)
 
 ---
 
