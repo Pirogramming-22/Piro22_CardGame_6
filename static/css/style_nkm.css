@@ -263,6 +263,7 @@ footer {
     width: 100%;
     border: 2px solid var(--light_brown);
 }
+
 .delete_attack__game_info_status, .delete_attack__game_info_mycard,
 .finished_attack__game_info_rule, .finished_attack__game_info_card,
 .finished_attack__game_info_result, .finished_attack__game_info_score {
