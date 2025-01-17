@@ -4,12 +4,15 @@
 {% load allauth %}
 {% load socialaccount %}
 {% load allauth account %}
+
 {% block head_title %}{% trans "Log In" %}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="container" style="height:100vh">
-  <div class="row justify-content-center h-100">
-    <div class="col align-self-center text-center card text-white bg-jellyho my-3" style="max-width: 25rem;">
       <div class="card-header"><h1 style="font-family: 'Staatliches', cursive;">Piro Card Game</h1></div>
       <div class="card-body">
         <h3 class="card-title">Log In</h3>
