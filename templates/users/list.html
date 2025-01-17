@@ -1,41 +1,57 @@
 {% extends 'base.html' %}
+
 {% block btn_contents %}
 <div class="list__container">
     <div class="list__title">🃏History List</div>
-    <div class="list__user_info">현재 플레이어: {{user.name}}</div>
+    <div class="list__user_info">현재 플레이어: {{ user.username }}</div>
     <div class="list__divide"></div>
     <div class="list__tool">
+        {% for item in games_with_index %}
         <div class="list__game_info">
-            <div class="list__game_info_users">유저정보</div>
-            {% if game.status %}
-            {% endif %}
-            <button type="submit" class="list__game_info_CA">Counter Attack</button>
-            <button type="submit" class="list__game_info_more">게임정보</button>
-        </div>
-        <div class="list__game_info">
-            <div class="list__game_info_users">유저정보</div>
-            <div class="list__game_info_status">게임 진행상태</div>
-            <button type="submit" class="list__game_info_more">게임정보</button>
-        </div>
-        <div class="list__game_info">
-            <div class="list__game_info_users">유저정보</div>
-            {% if game.status %}
-            {% endif %}
-            <div class="list__game_info_status">게임 진행상태
-                <button type="submit" class="list__game_info_del">공격취소</button>
+            <!-- 게임 인덱스 -->
+            <div class="list__game_index">
+                {{ item.index }}
             </div>
-            <button type="submit" class="list__game_info_more">게임정보</button>
+
+            <!-- 상대방 정보 -->
+            <div class="list__game_info_users">
+                {{ item.game.attacker}} VS {{item.game.defender}}
+            </div>
+
+            <div class="list__game_info_result">
+                {% if item.game.status == "finished" %}
+                    {% if item.game.winner%}
+                        {% if item.game.winner.id == user.id %}
+                            Win!
+                        {% else %}
+                            Lose
+                        {% endif %}
+                    {% else %}
+                        Draw
+                    {% endif %}
+                {% else %}
+                    {% if item.game.attacker == user %}
+                        진행 중..
+                        <a href="{% url 'games:user_game_data' game_id=item.game.id %}">
+                            <button type="submit" class="list__game_info_del">공격취소</button>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'games:user_game_data' game_id=item.game.id %}">
+                        <button type="submit" class="list__game_info_CA">Counter Attack</button></a>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <!-- 버튼 -->
+            <a href="{% url 'games:user_game_data' game_id=item.game.id %}">
+                <button type="submit" class="list__game_info_more">게임정보</button>
+            </a>
         </div>
-        <div class="list__game_info">
-            <div class="list__game_info_users">유저정보</div>
-            <div class="list__game_info_status">게임 진행상태</div>
-            <button type="submit" class="list__game_info_more">게임정보</button>
-        </div>
-        <div class="list__game_info">
-            <div class="list__game_info_users">유저정보</div>
-            <div class="list__game_info_status">게임 진행상태</div>
-            <button type="submit" class="list__game_info_more">게임정보</button>
-        </div>
+        {% empty %}
+        <p>플레이한 게임이 없습니다.</p>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
+
+
+
