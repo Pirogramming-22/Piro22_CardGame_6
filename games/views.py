@@ -1,7 +1,28 @@
 import random
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Game, Card
+from django.contrib.auth.models import User
+
+
+#테스트(추후 삭제)
+def start_game_page(request):
+    if request.user.is_authenticated:
+        # 랜덤으로 5장의 카드 생성
+        cards = random.sample(range(1, 11), 5)
+
+        # 현재 유저를 제외한 모든 유저를 Defender로 가져오기
+        defenders = User.objects.exclude(id=request.user.id)
+
+        context = {
+            'cards': cards,
+            'defenders': defenders,
+        }
+        return render(request, 'start_game.html', context)
+    else:
+        return redirect('login')  # 로그인 페이지로 리다이렉트
+
+
 
 # 1. 게임 생성
 def start_game(request):
