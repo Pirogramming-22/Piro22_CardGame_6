@@ -16,30 +16,10 @@ def calculate_result(request, game_id):
     else:
         return JsonResponse({"status": "error", "message": "Invalid method"}, status=405)
     
-    
-# 랭킹
-def user_ranking(request):
-    if request.method == "GET":
-        # 모든 사용자를 점수 기준으로 정렬 (내림차순)
-        users = User.objects.order_by('-user_score', 'id') # 점수 같을 경우, id순
-        top_users = users[:3] # 상위 3명
-        
-        ranking_data = [
-            {
-                "rank": index + 1,
-                "username": user.username,
-                "nickname": user.nickname,
-                "user_score": user.user_score,
-            }
-            for index, user in enumerate(top_users)
-        ]
-    return render(request, "games/ranking.html", {"ranking_data": ranking_data})
-
 
 # 게임 목록
 @login_required
 def user_game_list(request):
-
     user = request.user  # 현재 로그인된 사용자
 
     # 사용자가 플레이한 모든 게임 조회
@@ -56,6 +36,7 @@ def user_game_list(request):
             result = game.result
             if result.draw:
                 game_user_result = "Draw"
+                game_opponent_result = "Draw"
             elif result.winner == user:
                 game_user_result = "Win"
                 game_opponent_result = "Lose"
@@ -63,7 +44,8 @@ def user_game_list(request):
                 game_user_result = "Lose"
                 game_opponent_result = "Win"
         except GameResult.DoesNotExist:
-            game_user_result = "Pending"      # 결과없음
+            game_user_result = "Pending"
+            game_opponent_result = "Pending"
 
         # 게임 데이터 추가
         game_data.append({
@@ -71,14 +53,14 @@ def user_game_list(request):
             "opponent": opponent.username,
             "user_result": game_user_result,
             "opponent_result": game_opponent_result,
+            "status": game.status,  # 게임 상태 추가
         })
 
     # 템플릿에 데이터 전달
     return render(request, "users/list.html", {
-        "user": user,          # 현재 사용자 정보
-        "games": game_data,    # 게임 목록
+        "user": user,           # 현재 사용자 정보
+        "game_data": game_data,  # 게임 목록
     })
-    
 
 # 게임 정보
 @login_required
@@ -107,4 +89,22 @@ def user_game_data(request, game_id):
 
     return render(request, template, context)
         
+
+# 랭킹
+def user_ranking(request):
+    if request.method == "GET":
+        # 모든 사용자를 점수 기준으로 정렬 (내림차순)
+        users = User.objects.order_by('-user_score', 'id') # 점수 같을 경우, id순
+        top_users = users[:3] # 상위 3명
+        
+        ranking_data = [
+            {
+                "rank": index + 1,
+                "username": user.username,
+                "nickname": user.nickname,
+                "user_score": user.user_score,
+            }
+            for index, user in enumerate(top_users)
+        ]
+    return render(request, "games/ranking.html", {"ranking_data": ranking_data})
 
