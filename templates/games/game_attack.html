@@ -1,24 +1,32 @@
-{% extends 'base.html' %}
+{% extends 'games/detail.html' %}
 
-{% block btn_contents %}
-<h3>내가 고른 카드:</h3>
-<form method="post" action="{% url 'process_attack' %}">
-    {% csrf_token %}
-    <div>
-        {% for card in cards %}
-            <label>
-                <input type="radio" name="selected_card" value="{{ card }}" required> {{ card }}
-            </label><br>
-        {% endfor %}
-    </div>
-    
-    <h3>Defender 선택:</h3>
-    <select name="defender" required>
-        {% for user in defenders %}
-            <option value="{{ user.id }}">{{ user.username }}</option>
-        {% endfor %}
-    </select><br>
-    
-    <button type="submit">Attack!</button>
-</form>
+
+{% block detail_contents%}
+<div>
+    <form action="/submit" method="POST">
+        <h3 class="attack_title_detail">내가 고른 카드:</h3>
+        <div class="card_choice">
+            {% for card in cards %}
+            <div class="card_choice_number">
+                <input type="radio" id="card_{{ card }}" name="selected_card" value="{{ card }}" required>
+                <label for="card_{{ card }}">{{ card }}</label>
+            </div>
+            {% endfor %}
+        </div>
+    </form>
+    <form action="/submit" method="POST">
+        <div class="choice_defender_container">
+            <h3 class="attack_title_detail">Defender : </h3>
+            <label for="choice_defender"></label>
+            <select id="choice_defender" name="choice_defender" required>
+                <option value="">-------</option>
+                {% for defender in defenders %}
+                    <option value="{{ defender.id }}">{{ defender.username }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="counterattack_btn">Attack!</button> 
+    </form>
+</div>
+
 {% endblock %}
