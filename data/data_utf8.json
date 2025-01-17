@@ -1,0 +1,3 @@
+[
+    {"model": "socialaccount.socialapp", "pk": 1, "fields": {"provider": "naver", "provider_id": "", "name": "네이버 로그인", "client_id": "0tRmz1SnO364DLCn26hJ", "secret": "eJP7e2_BtK", "key": "", "settings": {}, "sites": [1]}}
+  ]

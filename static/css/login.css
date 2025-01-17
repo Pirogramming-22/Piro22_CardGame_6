@@ -1,0 +1,102 @@
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+:root {
+    --light_brown: #ECDFCC;
+    --background-green: #181C14;
+    --green: #123524;
+    --black: #000;
+    --white: #FFFFFF;
+    --light_gray: #dcdcdc;
+
+    --font-style-gonggothic-medium: 'GongGothicMedium';
+
+    --font-size-header: 22px;
+    --font-size-footer: 30px;
+    --font-size-btn-big: 40px;
+    --font-size-btn-medium: 20px;
+    --font-size-btn-small: 16px;
+    --font-size-detail-infos: 24px;
+
+    --font-weight-bold: 700;
+    --font-weight-medium: 500;
+
+    --radius-regular: 10px;
+}
+*{
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+a{
+    color:#FFFFFF;
+}
+
+body {
+    font-family: var(--font-style-gonggothic-medium);
+}
+
+header, footer {
+    background-color:var(--light_brown);
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px;
+}
+
+footer {
+    justify-content: center;
+    font-size: var(--font-size-footer);
+}
+
+
+
+.container{
+    background: var(--background-green);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1, h3{
+    color: var(--light_brown);
+    font-weight: var(--font-weight-medium);
+    font-size: 54px;
+    text-shadow: 8px 10px var(--green);
+    text-align: center;
+}
+
+.login {
+    background: var(--light_brown);
+    border-radius: var(--radius-regular) var(--radius-regular) 0 0;
+    display: flex;
+    flex-direction: column;
+    width: 50dvw;
+    align-items: flex-start;
+    padding: 50px;
+}
+
+.my-2{
+    background: var(--light_brown);
+    border-radius:0 0 var(--radius-regular) var(--radius-regular);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50dvw;
+    align-items: center;
+    padding: 20px;
+}
+.login button{
+    width: 25%;
+    border-radius:var(--radius-regular);
+    margin-left: 35%;
+    height: 5dvh;
+}
+.login button:hover{
+    background: var(--light_gray);
+}

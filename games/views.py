@@ -1,21 +1,90 @@
-from django.shortcuts import render
-from .models import Game
+from django.shortcuts import render, redirect
+import random
+from django.contrib.auth import get_user_model
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from users.models import User
+from games.models import Game
 from django.http import JsonResponse
 from .game_result_services import calculate_game_result
-from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required  # 로그인된 사용자만 접근할 수 있도록 제한
+from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
 User = get_user_model()
 
-# Create your views here.
+@login_required
+def game_start(request):
+    if request.method == "POST":
+        # 폼에서 전송된 데이터 가져오기
+        card_number = request.POST.get("card_number")  # 선택된 카드 번호
+        choice_defender = request.POST.get("choice_defender")  # 선택된 Defender ID
+        mylist  = [
+        'high',  # 숫자가 큰 카드가 승리
+        'low',   # 숫자가 작은 카드가 승리
+        ]
+        wc = random.choice (mylist)
+        attacker = request.user
+        defender = User.objects.get(id = choice_defender)
 
-# 게임 결과
-def calculate_result(request, game_id):
+        new_game = Game(status = 'waiting', attacker_card = int(card_number), attacker = attacker, defender = defender, 
+                        winning_condition = wc, winner = None, defender_card = None)
+        new_game.save()
+        return redirect('game_list/')
+    attacker = request.user
+    defender = User.objects.exclude(id=attacker.id)
+    ctx = {
+        'attacker' : attacker,
+        'defender' : defender,
+    }
+    return render(request,'games/game_attack.html', ctx)
+
+'''def calculate_result(request, game_id):
     if request.method == "POST":
         result = calculate_game_result(game_id)
         return JsonResponse(result) #결과 : 딕셔너리 형식(JSON)
     else:
-        return JsonResponse({"status": "error", "message": "Invalid method"}, status=405)
+        return JsonResponse({"status": "error", "message": "Invalid method"}, status=405)'''
     
+#def game_result(request, game_id):
+'''
+def game_defense(request, game_id):
+    #print(request.get_full_path())
+        if request.method == "POST":
+        # 폼에서 전송된 데이터 가져오기
+        card_number = request.POST.get("card_number")  # 선택된 카드 번호
+        game = Game.objects.get(id=game_id)
+        game.defender_card = int(card_number)
+        game.status = "finished"
+        game.save()
+        result = calculate_game_result(game_id)
+        return redirect('games:game_list/')
+    
+    game = Game.objects.get(id=game_id)
+    ctx = {
+        'game_id' : game_id
+    }
+    return render(request,'games/game_defense.html', ctx)'''
+
+def game_defense(request, game_id):
+    # 특정 게임 객체 가져오기
+    game = get_object_or_404(Game, id=game_id)
+
+    # POST 요청 처리 (추후 활성화 가능)
+
+    if request.method == "POST":
+        card_number = request.POST.get("card_number")
+        game.defender_card = int(card_number)
+        game.status = "finished"
+        game.save()
+        result = calculate_game_result(game_id)
+        return redirect('games:user_game_list')
+    
+
+    # 템플릿에 게임 객체 전달
+    ctx = {
+        'game': game  # 게임 객체 전체를 전달
+    }
+    return render(request, 'games/game_defense.html', ctx)
+
 
 # 게임 목록
 @login_required
@@ -92,9 +161,15 @@ def user_ranking(request):
             {
                 "rank": index + 1,
                 "username": user.username,
-                "nickname": user.nickname,
+                #"nickname": user.nickname,
                 "user_score": user.user_score,
             }
             for index, user in enumerate(top_users)
         ]
     return render(request, "games/ranking.html", {"ranking_data": ranking_data})
+
+
+def game_delete(request, game_id):
+    game = Game.objects.get(id = game_id)
+    game.delete()
+    return redirect('games:user_game_list')

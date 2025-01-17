@@ -18,7 +18,8 @@ class Game(models.Model):
     attacker = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name='initiated_games',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        default=None
     )
     defender = models.ForeignKey(
         settings.AUTH_USER_MODEL,

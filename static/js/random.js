@@ -16,3 +16,23 @@ randomCardNums.forEach((number, index)=>{
     inputElement.value = number;
     labelElement.textContent = number;
 })
+
+let checked_value = 0;
+let checked_defender = 0;
+const cards = document.querySelectorAll('.card_number');
+const defender = document.querySelector('#choice_defender');
+
+cards.forEach((card) => {
+    card.addEventListener("change", (e) => {
+        if (e.target.checked) {
+            checked_value = e.target.value; 
+        }
+    });
+});
+
+defender.addEventListener("change", ()=>{
+    checked_defender = defender.value;
+    //console.log(checked_defender)
+})
+
+

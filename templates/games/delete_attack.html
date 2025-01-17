@@ -5,7 +5,7 @@
     <div class="delete_attack__game_info_status">진행 중..</div>
     <div class="delete_attack__game_info_mycard">나: {{game.attacker_card}}</div>
     <div class="delete_attack__btns">
-        <button type="submit" class="delete_attack__game_delete">게임취소</button>
-        <a href="{% url 'games:user_game_list'%}" class="finished_attack__a_tag"><button type="submit" class="finished_attack__game_list">전적목록</button></a>
+        <button type="submit" class="delete_attack__game_delete" onclick="window.location.href='{% url 'games:game_delete' game_id=game.id %}'">게임취소</button>
+        <a href="{% url 'games:user_game_list'%}"><button type="submit" class="finished_attack__game_list">전적목록</button></a>
     </div>
 {% endblock %}

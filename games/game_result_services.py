@@ -38,7 +38,7 @@ def calculate_game_result(game_id):
     # 결과 저장
     with transaction.atomic():
         game.status = 'finished'
-        game.winner = winner.id if winner else None
+        game.winner = winner if winner else None
         game.save()
 
         # 점수 업데이트
@@ -60,7 +60,7 @@ def update_player_scores(game_id):
     game = Game.objects.get(id=game_id)
     
     # 승자, 패자, 카드 점수 가져오기
-    if game.winner == game.attacker.id:
+    if game.winner.id == game.attacker.id:
         winner, loser = game.attacker, game.defender
         winner_card_score, loser_card_score = game.attacker_card, game.defender_card
     else:

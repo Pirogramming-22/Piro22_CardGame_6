@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +29,14 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 LOGIN_REDIRECT_URL = '/'
+
+ACCOUNT_LOGOUT_ON_GET = True
+
+ACCOUNT_CONFIRM_EMAIL_ON_GET = False
+
+ACCOUNT_EMAIL_VERIFICATION = "none"
+
+ACCOUNT_SIGNUP_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -48,12 +57,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'oauth2_provider',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     #'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.naver',
-    'allauth.socialaccount.providers.kakao',
+    #'allauth.socialaccount.providers.kakao',
     'games',
     'users',
 ]
@@ -74,7 +84,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'templates', 'account')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
