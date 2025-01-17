@@ -1,205 +1,70 @@
-import random
-from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
+import random
+from django.contrib.auth import get_user_model
+from django.conf import settings
 from .models import Game, Card
-from django.contrib.auth.models import User
 
+User = get_user_model()
 
-#테스트(추후 삭제)
+# 1. Start 버튼 눌렀을 때 이동하는 화면
 def start_game_page(request):
     if request.user.is_authenticated:
-        # 랜덤으로 5장의 카드 생성
+        # 랜덤 카드 5장 생성
         cards = random.sample(range(1, 11), 5)
 
-        # 현재 유저를 제외한 모든 유저를 Defender로 가져오기
+        # 현재 사용자 제외한 디펜더 리스트
         defenders = User.objects.exclude(id=request.user.id)
 
         context = {
             'cards': cards,
             'defenders': defenders,
         }
-        return render(request, 'start_game.html', context)
+        return render(request, 'games/game_attack.html', context)
     else:
-        return redirect('login')  # 로그인 페이지로 리다이렉트
+        return redirect('account_login')
 
-
-
-# 1. 게임 생성
-def start_game(request):
-    """
-    새로운 게임을 생성하는 API
-    """
+# 2. Attack 버튼 눌렀을 때 처리하는 로직
+def process_attack(request):
     if request.method == 'POST':
-        try:
-            player1 = request.user
-            player2_id = request.POST.get('player2_id')
-            player2 = User.objects.get(id=player2_id)
+        selected_card = request.POST.get('selected_card')  # 선택된 카드 번호
+        defender_id = request.POST.get('defender')  # 선택된 수비자 ID
 
-            # 랜덤으로 'high' 또는 'low' 결정
-            winning_condition = random.choice(['high', 'low'])
+        # 현재 로그인된 사용자 (공격자)
+        attacker = request.user
 
-            # 새로운 게임 생성
-            game = Game.objects.create(
-                player1=player1,
-                player2=player2,
-                winning_condition=winning_condition
-            )
+        # 수비자 정보 가져오기
+        defender = User.objects.get(id=defender_id)  
 
-            return JsonResponse({
-                'game_id': game.id,
-                'player1': player1.username,
-                'player2': player2.username,
-                'status': game.status,
-                'winning_condition': game.winning_condition,
-            }, status=201)
+        # 새로운 게임 생성
+        game = Game.objects.create(
+            player1=attacker,
+            player2=defender,
+            status='waiting',  # 초기 상태는 "waiting"
+        )
 
-        except User.DoesNotExist:
-            return JsonResponse({'error': 'Player2 does not exist.'}, status=404)
+        # 공격자의 카드 정보 저장
+        Card.objects.create(
+            game=game,
+            player=attacker,
+            number=selected_card
+        )
 
-    return JsonResponse({'error': 'Invalid request method.'}, status=400)
+        # 이전 게임 기록 가져오기
+        all_games = Game.objects.all().order_by('-created_at')  # 최신 순으로 정렬
 
 
-# 2. 카드 생성
-def generate_cards(request, game_id):
-    """
-    랜덤으로 5장의 카드를 생성하여 게임과 연관된 카드로 저장.
-    """
-    if request.method == 'POST':  # POST 요청만 허용
-        try:
-            # 게임과 요청한 사용자 가져오기
-            game = Game.objects.get(id=game_id)
-            player = request.user
+        # 게임 ID 및 기본 정보 전달
+        context = {
+            'game_id': game.id,
+            'attacker': attacker,
+            'defender': defender,
+            'selected_card': selected_card,
+            'games': all_games,
+        }
 
-            # 이미 카드가 생성된 경우 에러 반환
-            if Card.objects.filter(game=game, player=player).exists():
-                return JsonResponse({'error': 'Cards already generated for this player.'}, status=400)
+        # 게임 리스트 화면 렌더링
+        return render(request, 'users/list.html', context)
 
-            # 랜덤한 5개의 숫자 생성
-            numbers = random.sample(range(1, 11), 5)
-            cards = []
-            for number in numbers:
-                # 카드 생성 및 저장
-                card = Card.objects.create(game=game, player=player, number=number)
-                cards.append(card.number)
-
-            # 생성된 카드 반환
-            return JsonResponse({'cards': cards}, status=200)
-
-        except Game.DoesNotExist:
-            return JsonResponse({'error': 'Game not found.'}, status=404)
-
-    return JsonResponse({'error': 'Invalid request method.'}, status=400)
-
-
-# 3. 게임 상태 업데이트
-def update_game_status(request, game_id):
-    """
-    게임 상태를 업데이트하는 API
-    """
-    if request.method == 'POST':  # POST 요청만 허용
-        try:
-            # 게임 가져오기
-            game = Game.objects.get(id=game_id)
-
-            # 클라이언트가 보낸 새로운 상태 가져오기
-            new_status = request.POST.get('status')
-
-            # 유효한 상태 값인지 확인
-            valid_statuses = ['waiting', 'ongoing', 'finished']
-            if new_status not in valid_statuses:
-                return JsonResponse({'error': 'Invalid status value.'}, status=400)
-
-            # 상태 변경
-            game.status = new_status
-            game.save()
-
-            # 성공적으로 변경된 상태 반환
-            return JsonResponse({
-                'game_id': game.id,
-                'new_status': game.status
-            }, status=200)
-
-        except Game.DoesNotExist:
-            return JsonResponse({'error': 'Game not found.'}, status=404)
-
-    return JsonResponse({'error': 'Invalid request method.'}, status=400)
-
-
-# 4. 승패 판단 로직
-def determine_winner(game_id, card_player1, card_player2):
-    """
-    게임 ID와 양쪽 플레이어가 선택한 카드를 바탕으로 승패를 판단.
-    """
-    try:
-        # 게임 정보 가져오기
-        game = Game.objects.get(id=game_id)
-
-        # 승리 조건 확인
-        winning_condition = game.winning_condition
-
-        # 승패 판정
-        if winning_condition == 'high':
-            # 높은 카드가 승리
-            if card_player1 > card_player2:
-                winner = game.player1
-                loser = game.player2
-            elif card_player1 < card_player2:
-                winner = game.player2
-                loser = game.player1
-            else:
-                winner = None  # 무승부
-                loser = None
-        elif winning_condition == 'low':
-            # 낮은 카드가 승리
-            if card_player1 < card_player2:
-                winner = game.player1
-                loser = game.player2
-            elif card_player1 > card_player2:
-                winner = game.player2
-                loser = game.player1
-            else:
-                winner = None  # 무승부
-                loser = None
-
-        return winner, loser
-
-    except Game.DoesNotExist:
-        raise ValueError("Game not found.")
-
-
-# 5. 게임 승패와 상태 처리
-def process_turn(request, game_id):
-    """
-    한 턴의 결과를 처리하고, 게임 상태를 업데이트.
-    """
-    if request.method == 'POST':
-        try:
-            # 게임 정보 가져오기
-            game = Game.objects.get(id=game_id)
-
-            # 플레이어1과 플레이어2의 선택된 카드 가져오기
-            card_player1 = int(request.POST.get('card_player1'))
-            card_player2 = int(request.POST.get('card_player2'))
-
-            # 승패 판단
-            winner, loser = determine_winner(game.id, card_player1, card_player2)
-
-            if winner:
-                # 결과 저장 (Game 상태 업데이트)
-                game.status = 'finished'
-                game.save()
-
-                # 결과 반환
-                return JsonResponse({
-                    'game_id': game.id,
-                    'winner': winner.username,
-                    'loser': loser.username
-                }, status=200)
-            else:
-                # 무승부 처리
-                return JsonResponse({'message': 'It\'s a tie!'}, status=200)
-
-        except Game.DoesNotExist:
-            return JsonResponse({'error': 'Game not found.'}, status=404)
-
-    return JsonResponse({'error': 'Invalid request method.'}, status=400)
+    # GET 요청일 경우 시작 페이지로 리다이렉트
+    return redirect('start_game_page')

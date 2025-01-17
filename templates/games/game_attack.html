@@ -1,16 +1,24 @@
 {% extends 'base.html' %}
 
 {% block btn_contents %}
-<div class="attack_statebox">
-    <div class="attack_info">
-        <h3>4 - user1 VS user3 </h3>  
-        <div class="attack_state">
-            <p>진행 중...</p>
-            <p>나: 6</p>
-        </div>
+<h3>내가 고른 카드:</h3>
+<form method="post" action="{% url 'process_attack' %}">
+    {% csrf_token %}
+    <div>
+        {% for card in cards %}
+            <label>
+                <input type="radio" name="selected_card" value="{{ card }}" required> {{ card }}
+            </label><br>
+        {% endfor %}
     </div>
-    <a href="#" class="attack_gamebtn"><button>게임취소</button></a>
-    <a href="#" class="attack_gamebtn"><button>전적목록</button></a>
-
-</div>
+    
+    <h3>Defender 선택:</h3>
+    <select name="defender" required>
+        {% for user in defenders %}
+            <option value="{{ user.id }}">{{ user.username }}</option>
+        {% endfor %}
+    </select><br>
+    
+    <button type="submit">Attack!</button>
+</form>
 {% endblock %}
