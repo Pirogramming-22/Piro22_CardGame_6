@@ -22,12 +22,12 @@
                 {% if item.game.status == "finished" %}
                     {% if item.game.winner%}
                         {% if item.game.winner.id == user.id %}
-                            Win!
+                            🏆 You Win! 🏆
                         {% else %}
-                            Lose
+                            😭 You Lose.. 😭
                         {% endif %}
                     {% else %}
-                        Draw
+                        🤝 Draw 🤝
                     {% endif %}
                 {% else %}
                     {% if item.game.attacker == user %}
