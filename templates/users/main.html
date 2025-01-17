@@ -13,7 +13,7 @@
 {% block btn_contents %}
     <div class="title">Piro Card Game</div>
     {% if user.is_authenticated %}
-        <button type="submit" class="main__game_start_btn" onclick="window.location.href='{% url 'start_game_page' %}'">start</button>
+        <button type="submit" class="main__game_start_btn" onclick="window.location.href='{% url 'games:game_start' %}'">start</button>
         <button type="submit" class="login__game_list_btn">list</button>
     {% else %}
         <a href="{% url 'account_login' %}" class="main__game_start_btn">로그인 후 시작하기</a>

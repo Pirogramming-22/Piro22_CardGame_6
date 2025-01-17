@@ -18,16 +18,19 @@ class Game(models.Model):
     attacker = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name='initiated_games',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        default=None
     )
     defender = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
         related_name='received_games',
         on_delete=models.CASCADE
     )
     
     attacker_card = models.IntegerField(default=0)
-    defender_card = models.IntegerField(null=True)
+    defender_card = models.IntegerField(null=True, blank=True)
     winning_condition = models.CharField(max_length=10, choices=WINNING_CONDITION_CHOICES, default='high')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='waiting')
     created_at = models.DateTimeField(auto_now_add=True)
