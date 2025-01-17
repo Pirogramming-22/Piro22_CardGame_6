@@ -21,20 +21,23 @@
             <div class="list__game_info_result">
                 {% if item.game.status == "finished" %}
                     {% if item.game.winner%}
-                        {% if item.game.winner.id == item.game.attacker.id %}
-                            Win : Lose
+                        {% if item.game.winner.id == user.id %}
+                            Win!
                         {% else %}
-                            Lose : Win
+                            Lose
                         {% endif %}
                     {% else %}
                         Draw
                     {% endif %}
                 {% else %}
                     {% if item.game.attacker == user %}
-                        대기중..
-                        <button type="submit" class="list__game_info_del">공격취소</button>
+                        진행 중..
+                        <a href="{% url 'games:user_game_data' game_id=item.game.id %}">
+                            <button type="submit" class="list__game_info_del">공격취소</button>
+                        </a>
                     {% else %}
-                        <button type="submit" class="list__game_info_CA">Counter Attack</button>
+                        <a href="{% url 'games:user_game_data' game_id=item.game.id %}">
+                        <button type="submit" class="list__game_info_CA">Counter Attack</button></a>
                     {% endif %}
                 {% endif %}
             </div>
