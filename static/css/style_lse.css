@@ -1,4 +1,4 @@
-/*attack.html*/
+
 .attack_statebox{
     width: 600px;
     height: 600px;
@@ -41,7 +41,7 @@
     border: none;
 }
 
-/*game_result.html*/
+
 .result_info{
     font-size: 15px;
     line-height: 1rem;
@@ -58,7 +58,7 @@
     margin:0;
 }
 
-/*ranking.html*/
+
 .ranking_awards{
     font-size: 20px;
     border-bottom: 2px solid var(--light_brown);
