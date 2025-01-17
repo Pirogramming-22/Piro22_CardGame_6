@@ -125,17 +125,22 @@ footer {
     background-color: var(--white);
     position: absolute;
     left: 140px;
-    top: 60px;
+    top: 70px;
     border: 4px solid var(--light_gray); 
     border-radius: 4px;
+    transition: all 0.3s ease;
+}
+.card_1:hover, .card_2:hover, .card_3:hover {
+    transform: translateY(-100px) rotate(5deg);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
 }
 .card_2 {
     left: 220px;
-    top: 100px;
+    top: 110px;
 }
 .card_3 {
     left: 300px;
-    top: 140px;
+    top: 150px;
 }
 .card_1 > img, .card_2 > img, .card_3 > img {
     width: 100%;
@@ -165,6 +170,13 @@ footer {
     font-family: var(--font-style-gonggothic-medium);
     background-color: var(--green);
     color: var(--light_brown);
+}
+
+.main__game_start_btn:hover, 
+.login__game_start_btn:hover, 
+.login__game_list_btn:hover {
+    background-color: var(--light_brown);
+    color: var(--green);
 }
 
 .login__status {
@@ -197,7 +209,7 @@ footer {
     padding: 10px 20px 10px 20px;
     border-radius: var(--radius-regular);
     background-color: var(--green);
-    border-inline: 4px dashed var(--light_brown);
+    border-inline: 4px ridge var(--light_brown);
 }
 .list__game_info {
     display: flex;
@@ -214,7 +226,12 @@ footer {
     background-color: var(--background-green);
     color: var(--light_brown);
 }
-
+.list__game_info_more:hover,
+.list__game_info_CA:hover,
+.list__game_info_del:hover {
+    background-color: var(--light_gray);
+    color: var(--green);
+}
 .list__game_info_CA, .list__game_info_del {
     background-color: var(--light_brown);
     color: var(--green);
@@ -264,4 +281,12 @@ footer {
     font-family: var(--font-style-gonggothic-medium);
     background-color: var(--background-green);
     color: var(--light_brown);
+}
+.delete_attack__game_delete:hover, 
+.delete_attack__game_list:hover,
+.counter_attack__game_accept:hover, 
+.counter_attack__game_list:hover,
+.finished_attack__game_list:hover {
+    background-color: var(--light_brown);
+    color: var(--background-green);
 }
