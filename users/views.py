@@ -17,7 +17,7 @@ def register(request):
     else:
         user_form = RegisterForm()
         ctx = {'form': user_form}
-    return render(request, 'registration/register.html', ctx)
+    return render(request, 'account/signup.html', ctx)
 def card_main(request):
     context = {
         'data': 'hello!',

@@ -18,14 +18,29 @@ class Game(models.Model):
     attacker = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name='initiated_games',
-        on_delete=models.CASCADE,
-        default=None,
-        null=True
+        on_delete=models.CASCADE
     )
     defender = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name='received_games',
-        on_delete=models.CASCADE,
-        default=None,
-        null=True
+        on_delete=models.CASCADE
     )
+    
+    attacker_card = models.IntegerField(default=0)
+    defender_card = models.IntegerField(null=True)
+    winning_condition = models.CharField(max_length=10, choices=WINNING_CONDITION_CHOICES, default='high')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='waiting')
+    created_at = models.DateTimeField(auto_now_add=True)
+    winner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='won_games',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+    
+    
+    def __str__(self):
+        return f"Game between {self.attacker} and {self.defender}"
+
+    

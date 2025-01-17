@@ -5,8 +5,9 @@
     <a href="{% url 'account_logout' %}" class="main__login">로그아웃</a>
     {% else %}
     <a href="{% url 'account_login' %}" class="main__login">로그인</a>
+        <a href="accounts/signup" class="main__join">회원가입</a>
     {% endif %}
-    <a href="/accounts/signup/" class="main__join">회원가입</a>
+
 {% endblock %}
 
 {% block btn_contents %}
