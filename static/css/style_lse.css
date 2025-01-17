@@ -1,4 +1,4 @@
-.attack_statebox{
+/* .attack_statebox{
     width: 600px;
     height: 600px;
     background-color: var(--green);
@@ -26,7 +26,7 @@
     font-size: 15px;
     line-height: 1rem;
     font-weight: 400;
-}
+} */
 
 .attack_gamebtn, .defense_gamebtn{
     margin-bottom: 10px;
@@ -107,3 +107,40 @@
     font-size: 14px;
     margin-top: 3px;
 }
+
+
+/*game_attack.html*/
+.attack_title{
+    border-bottom: 3px solid var(--light_brown);
+    margin-bottom: 10px;
+    padding: 10px;
+    font-weight: 500;
+}
+.card_choice{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid var(--light_brown);
+}
+
+.card_choice_number{
+    margin-bottom: 10px;
+    font-size: var(--font-size-detail-infos);
+}
+
+.counterattack_btn{
+    margin-top: 30px;
+    font-size: var(--font-size-btn-medium);
+    padding-inline: 20px;
+    padding-block: 8px;
+    border-radius: var(--radius-regular);
+    font-family: var(--font-style-gonggothic-medium);
+    background-color: var(--light_brown);
+    color: var(--background-green);
+}
+
+.counterattack_btn:hover {
+    background-color: var(--background-green);
+    color: var(--light_brown);
+}
+
+
