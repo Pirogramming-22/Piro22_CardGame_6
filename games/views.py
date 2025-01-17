@@ -4,4 +4,4 @@ def game_main(request):
     context = {
         'data': 'hello!',
     }
-    return render(request, 'games/delete_attack.html', context)
+    return render(request, 'games/game_defense.html', context)
