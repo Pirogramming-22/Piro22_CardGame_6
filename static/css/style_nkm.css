@@ -31,18 +31,24 @@
 }
 body {
     font-family: var(--font-style-gonggothic-medium);
+    margin: 0;
 }
 header, footer {
-    background-color:var(--light_brown);
+    background-color: #fff389;
     height: 80px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 40px;
+    position: relative;
+    z-index: 3;
 }
 footer {
     justify-content: center;
     font-size: var(--font-size-footer);
+    height: 87px;
+    position: relative;
+    z-index: 3;
 }
 .left_navBar>a, .right_navBar>a {
     text-decoration: none;
@@ -67,21 +73,22 @@ footer {
     gap: 40px;
 }
 .underNavBar {
-    height: 100vh;
+    height: 82vh;
     background-color: var(--background-green);
     position: relative;
-    padding-block: 40px;
     display: flex;
     width: 100%;
     gap: 50px;
 }
 .card_table, .card_inner_table {
     width: 580px;
-    height: 800px;
+    height: 830px;
     border-radius: 0px 450px 450px 0px;
     background-color: var(--green);
     border: 20px ridge var(--light_brown);
     border-left: none;
+    position: relative;
+    top: -35px;
 }
 .card_inner_table {
     margin-top: 40px;
@@ -90,6 +97,8 @@ footer {
     background-color: var(--background-green);
     border: 10px solid var(--light_brown);
     border-left: none;
+    position: relative;
+    top: 21px;
 }
 .card_position_1, .card_position_2,
 .card_position_3, .card_position_4 {
@@ -103,22 +112,22 @@ footer {
 }
 .card_position_1 {
     left: 72px;
-    top: 578px;
+    top: 480px;
 }
 .card_position_2 {
     transform: rotate(-56.648deg);
     left: 200px;
-    top: 474px;
+    top: 380px;
 }
 .card_position_3 {
     transform: rotate(-115.196deg);
     left: 200px;
-    top: 288px;
+    top: 206px;
 }
 .card_position_4 {
     transform: rotate(-146.782deg);
     left: 72px;
-    top: 156px;
+    top: 80px;
 }
 .card_1, .card_2, .card_3 {
     width: 120px;
@@ -153,9 +162,9 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 100px;
     margin-right:50px;
     width: 800px;
+    justify-content: center;
 }
 .title{
     color: var(--light_brown);
@@ -248,7 +257,7 @@ footer {
     background-color: var(--green);
     border-radius: var(--radius-regular);
     padding: 20px;
-    box-shadow: 4px 4px 4px 0px var(--light_brown);
+    box-shadow: 4px 4px 4px 0px #fff389;
 }
 .detail__tool {
     display: flex;
