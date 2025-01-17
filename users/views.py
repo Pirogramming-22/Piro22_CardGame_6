@@ -18,8 +18,3 @@ def register(request):
         user_form = RegisterForm()
         ctx = {'form': user_form}
     return render(request, 'account/signup.html', ctx)
-def card_main(request):
-    context = {
-        'data': 'hello!',
-    }
-    return render(request, 'users/list.html', context)
