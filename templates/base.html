@@ -13,7 +13,7 @@
 <body>
     <header>
         <div class="left_navBar">
-            <a href="#" class="game_name">Pirogrammer Card Game</a>
+            <a href="#" class="game_name">Pirogrammer <span class="green">Card</span> Game</a>
         </div>
         <div class="right_navBar">
             {% block navbar_contents %}
@@ -25,10 +25,17 @@
     </header>
     <div class="underNavBar">
         <div class="background">
-            <div class="card_table"></div>
-            <div class="card_1"></div>
-            <div class="card_2"></div>
-            <div class="card_3"></div>
+            <div class="card_table">
+                <div class="card_inner_table">
+                    <div class="card_position_4"></div>
+                    <div class="card_position_3"></div>
+                    <div class="card_position_2"></div>
+                    <div class="card_position_1"></div>
+                </div>
+            </div>
+            <div class="card_1"><img src="{% static 'image/07_of_diamonds.png' %}"></div>
+            <div class="card_2"><img src="{% static 'image/03_of_diamonds.png' %}"></div>
+            <div class="card_3"><img src="{% static 'image/02_of_diamonds.png' %}"></div>
         </div>
         <div class="main_container">
             {% block btn_contents %}

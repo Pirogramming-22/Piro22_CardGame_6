@@ -1,3 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
+def game_main(request):
+    context = {
+        'data': 'hello!',
+    }
+    return render(request, 'games/counter_attack.html', context)
