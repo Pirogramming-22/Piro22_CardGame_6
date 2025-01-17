@@ -1,0 +1,119 @@
+/*attack.html*/
+.attack_statebox{
+    width: 600px;
+    height: 600px;
+    background-color: var(--green);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 4px 4px 4px 0px var(--light_brown);
+    color : var(--light_brown);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.attack_info{
+    margin-bottom: 50px;
+}
+.attack_info h3, .defense_info h3, .game_result h3{
+    font-size: 25px;
+    margin-bottom: 15px;
+}
+
+.attack_info h3{
+    border-bottom: 2px solid var(--light_brown);
+}
+.attack_state{
+    font-size: 15px;
+    line-height: 1rem;
+    font-weight: 400;
+}
+
+.attack_gamebtn, .defense_gamebtn{
+    margin-bottom: 10px;
+}
+
+.attack_gamebtn button,.defense_gamebtn button, .result_total_list button{
+    width: 100px;
+    height: 30px;
+    background-color: var(--light_brown);
+    border-radius: 5px;
+    border: none;
+}
+
+/*game_result.html*/
+.result_info{
+    font-size: 15px;
+    line-height: 1rem;
+    font-weight: 400;
+
+}
+.result_info_detail{
+    border-top: 2px solid var(--light_brown);
+    margin: 0;
+    line-height: 2;
+    padding-top: 5px;
+}
+.result_info_detail p{
+    margin:0;
+}
+
+/*ranking.html*/
+.ranking_awards{
+    font-size: 20px;
+    border-bottom: 2px solid var(--light_brown);
+    width: 80%;
+    text-align: center;
+}
+
+.ranking_medal{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 80%;
+    margin-top: 70px;
+    margin-bottom: 30px;
+}
+
+.medal{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    color: var(--light_brown);
+    width: 80px;
+    position: relative;
+    
+}
+
+.ranking_first{
+    height: 200px;
+    background-color: rgb(65, 124, 82);
+}
+
+.ranking_second{
+    height: 150px;
+    background-color: rgb(43, 116, 60);
+}
+
+.ranking_third{
+    height: 100px;
+    background-color: rgb(30, 94, 53);
+}
+
+.ranking_info{
+    position: absolute;
+    top:-60px;
+    left: 50%;
+    transform : translateX(-50%);
+    font-size: 16px;
+    text-align: center;
+}
+.ranking_user{
+    margin-bottom: 0;
+}
+.ranking_score{
+    top:-50px;
+    font-size: 14px;
+    margin-top: 3px;
+}

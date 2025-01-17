@@ -1,7 +1,13 @@
 from django.urls import path
-from .views import *
+from . import views
+
+app_name = 'games'
+
 urlpatterns = [
-    path('game/<int:game_id>/result/', calculate_result, name='calculate_result'), #결과
-    path('ranking/', user_ranking, name='user_ranking'), #랭킹
-    path('history/', user_game_history, name='user_game_history'), # 전적
+    path('game_list/', views.user_game_list, name='user_game_list'), 
+    path('game_list/<int:game_id>/', views.user_game_data, name='user_game_data'), 
+    path('ranking/', views.user_ranking, name='user_ranking'), #랭킹
+    
+    path('game/<int:game_id>/result/', views.calculate_result, name='calculate_result'), #결과
+
 ]

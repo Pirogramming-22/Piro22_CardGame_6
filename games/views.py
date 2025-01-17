@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Game, Card, GameResult
 from django.http import JsonResponse
 from .game_result_services import calculate_game_result
@@ -33,44 +33,78 @@ def user_ranking(request):
             }
             for index, user in enumerate(top_users)
         ]
-    return JsonResponse({"status": "success", "ranking": ranking_data})
+    return render(request, "games/ranking.html", {"ranking_data": ranking_data})
 
 
-# 게임 전적 조회
+# 게임 목록
 @login_required
-def user_game_history(request):
-    user = request.user # 현재 로그인된 사용자
-    
-    # 사용자가 플레이한 모든 게임 가져오기
+def user_game_list(request):
+
+    user = request.user  # 현재 로그인된 사용자
+
+    # 사용자가 플레이한 모든 게임 조회
     games = Game.objects.filter(player1=user) | Game.objects.filter(player2=user)
     games = games.order_by('-created_at')  # 최신순 정렬
-    
+
+    # 게임 데이터를 처리
     game_data = []
     for game in games:
-        
-        # 상대 플레이어 결정
         opponent = game.player2 if game.player1 == user else game.player1
-        
+
         # 결과 확인
-        # game.result: Game 모델의 related_name='result'을 통해 연결된 GameResult 객체를 가져옴
         try:
-            result = game.result  # GameResult 객체
+            result = game.result
             if result.draw:
-                game_result = "Draw"
+                game_user_result = "Draw"
             elif result.winner == user:
-                game_result = "Win"
+                game_user_result = "Win"
+                game_opponent_result = "Lose"
             else:
-                game_result = "Lose"
+                game_user_result = "Lose"
+                game_opponent_result = "Win"
         except GameResult.DoesNotExist:
-            game_result = "Pending"  # 결과가 없는 경우
-            
+            game_user_result = "Pending"      # 결과없음
+
+        # 게임 데이터 추가
         game_data.append({
             "game_id": game.id,
             "opponent": opponent.username,
-            "status": game.status,
-            "result": game_result,
+            "user_result": game_user_result,
+            "opponent_result": game_opponent_result,
         })
 
-    return JsonResponse({"status": "success", "games": game_data})
-                
+    # 템플릿에 데이터 전달
+    return render(request, "users/list.html", {
+        "user": user,          # 현재 사용자 정보
+        "games": game_data,    # 게임 목록
+    })
+    
+
+# 게임 정보
+@login_required
+def user_game_data(request, game_id):
+    """
+    게임 상태에 따라 다른 템플릿으로 연결
+    """
+    # 게임 객체 가져오기
+    game = get_object_or_404(Game, id=game_id)
+
+    # 상태에 따른 템플릿 분기
+    if game.status == "waiting":
+        template = "games/delete_attack.html"
+    elif game.status == "ongoing":
+        template = "games/counter_attack.html"
+    else: # game.status == "finished":
+        template = "games/finished_attack.html"
+    
+    # 데이터 전달
+    context = {
+        "game_id": game.id,
+        "player1": game.player1.username,
+        "player2": game.player2.username,
+        "status": game.status,
+    }
+
+    return render(request, template, context)
         
+

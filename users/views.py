@@ -1,3 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
+def card_main(request):
+    context = {
+        'data': 'hello!',
+    }
+    return render(request, 'users/main.html', context)
