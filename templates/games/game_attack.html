@@ -3,40 +3,38 @@
 
 {% block detail_contents%}
 <div>
-    <form action="/submit" method="POST">
-        <h3 class="attack_title_detail">내가 고른 카드: </h3>
+    <h3 class="attack_title_detail">내가 고른 카드: </h3>
+        <form action="/submit" method="POST">
         <div class="card_choice">
             <div class="card_choice_number">
-                <input type="checkbox" id="card_number" value="2">
-                <label for="checkbox1">2</label>
+                <input type="radio" id="card_number6" name="card_number">
+                <label for="card_number6">6</label>
             </div>
             <div class="card_choice_number">
-                <input type="checkbox" id="card_number" value="3">
-                <label for="checkbox1">3</label>
-            </div>            
-            <div class="card_choice_number">
-                <input type="checkbox" id="card_number" value="5">
-                <label for="checkbox1">5</label>
+                <input type="radio" id="card_number2" name="card_number">
+                <label for="card_number2">2</label>
             </div>
             <div class="card_choice_number">
-                <input type="checkbox" id="card_number" value="7">
-                <label for="checkbox1">7</label>
+                <input type="radio" id="card_number3" name="card_number">
+                <label for="card_number3">3</label>
             </div>
             <div class="card_choice_number">
-                <input type="checkbox" id="card_number" value="9">
-                <label for="checkbox1">9</label>
+                <input type="radio" id="card_number4" name="card_number">
+                <label for="card_number4">4</label>
+            </div>
+            <div class="card_choice_number">
+                <input type="radio" id="card_number5" name="card_number">
+                <label for="card_number5">5</label>
             </div>
         </div>
-    </form>
-    <form action="/submit" method="POST">
-        <div class="choice_defender_container">
-            <h3 class="attack_title_detail">Defender : </h3>
-            <label for="choice_defender"></label>
-            <select id="choice_defender" name="choice_defender">
-                <option value="default_defender">-------</option>
-            </select>
-        </div>
-        <button tyep="submit"class="counterattack_btn">Attack!</button>
+            <div class="choice_defender_container">
+                <h3 class="attack_title_detail">Defender : </h3>
+                <label for="choice_defender"></label>
+                <select id="choice_defender" name="choice_defender">
+                    <option value="default_defender">-------</option>
+                </select>
+            </div>
+            <button tyep="submit"class="counterattack_btn">Attack!</button>
     </form>
 </div>
 

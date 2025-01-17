@@ -4,4 +4,4 @@ def card_main(request):
     context = {
         'data': 'hello!',
     }
-    return render(request, 'users/main.html', context)
+    return render(request, 'users/login.html', context)
