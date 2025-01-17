@@ -34,7 +34,7 @@ body {
     margin: 0;
 }
 header, footer {
-    background-color: #fff389;
+    background-color: #beac92;
     height: 80px;
     display: flex;
     align-items: center;
@@ -135,8 +135,8 @@ footer {
     transform: rotate(-29.304deg);
     background-color: var(--white);
     position: absolute;
-    left: 140px;
-    top: 70px;
+    left: 150px;
+    top: 140px;
     border: 4px solid var(--light_gray); 
     border-radius: 4px;
     transition: all 0.3s ease;
@@ -146,12 +146,12 @@ footer {
     box-shadow: 0 8px 15px rgba(0,0,0,0.2);
 }
 .card_2 {
-    left: 220px;
-    top: 110px;
+    left: 230px;
+    top: 182px;
 }
 .card_3 {
-    left: 300px;
-    top: 150px;
+    left: 310px;
+    top: 214px;
 }
 .card_1 > img, .card_2 > img, .card_3 > img {
     width: 100%;
@@ -252,12 +252,12 @@ footer {
 }
 
 .detail__container {
-    width: 100%;
+    width: 600px;
     height: 600px;
     background-color: var(--green);
     border-radius: var(--radius-regular);
     padding: 20px;
-    box-shadow: 4px 4px 4px 0px #fff389;
+    box-shadow: 4px 4px 4px 0px var(--light_brown);
 }
 .detail__tool {
     display: flex;
